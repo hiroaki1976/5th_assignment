@@ -11,78 +11,45 @@ const firebaseConfig = {
     const db = getDatabase(app); //RealtimeDBに接続
     const dbRef = ref(db, "chat"); //RealtimeDB内の"chat"を使う
 
-// 変数の定義
-let name1;
-let name2;
-let text1;
-let text2;
-let msg1;
-let msg2;
-let html;
-
-// ↓左側の送信ボタンが押された時の動作
-$('#send1').on('click', function () {
-    name1 = $('#name1').val();
-    text1 = $('#text1').val();
-
-    console.log(name1, 'name1の文字');
-    console.log(text1, 'text1の文字');
-
-    $('#text1').val('');
-
-    msg1 = {
-        name1: name1,
-        text1: text1,
+//データ登録(Click)
+$("#send").on("click", function () {
+    const msg = {
+        name: $("#name").val(),
+        text: $("#text").val()
     }
-    // push,setはFirebaseの用意したコマンド（JavaScriptのメソッドとは違う！）
-    const newPostRef = push(dbRef);
-    set(newPostRef, msg1);
+    const newPostRef = push(dbRef); //ユニークKEYを生成
+    set(newPostRef, msg);           //"chat"にユニークKEYをつけてオブジェクトデータを登録
 });
-// ここまで↑
 
-// ↓右側の送信ボタンが押された時の動作
-$('#send2').on('click', function () {
-    name2 = $('#name2').val();
-    text2 = $('#text2').val();
-
-    console.log(name2, 'name2の文字');
-    console.log(text2, 'text2の文字');
-
-    $('#text2').val('');
-
-    msg2 = {
-        name2: name2,
-        text2: text2,
+//データ登録(Enter)
+$("#text").on("keydown", function (e) {
+    console.log(e);        //e変数の中身を確認！！
+    if (e.keyCode == 13) {   //EnterKey=13
+        const msg = {
+            name: $("#name").val(),
+            text: $("#text").val()
+        }
+        const newPostRef = push(dbRef); //ユニークKEYを生成
+        set(newPostRef, msg);           //"chat"にユニークKEYをつけてオブジェクトデータを登録
     }
-    // push,setはFirebaseの用意したコマンド（JavaScriptのメソッドとは違う！）
-    const newPostRef = push(dbRef);
-    set(newPostRef, msg2);
 });
-// ここまで↑
 
 //最初にデータ取得＆onSnapshotでリアルタイムにデータを取得
-onChildAdded(dbRef, function(data) {
-    const key = data.key;
-
-    if (msg1 != undefined) {
-        msg1 = data.val();
-        html = `
-    <div class=${key}>
-        <p>${msg1.name1}</p>
-        <p>${msg1.text1}</p>
-    </div>
-        `
-    } else if (msg2 != undefined) {
-        msg2 = data.val();
-        html = `
-    <div class=${key}>
-        <p>${msg2.name2}</p>
-        <p>${msg2.text2}</p>
-    </div>
-    `
-    }
-    console.log(msg2);
-    console.log(html);
-    
-    $('#output').append(html);
+onChildAdded(dbRef, function (data) {
+    const msg = data.val();    //オブジェクトデータを取得し、変数msgに代入
+    const key = data.key;      //データのユニークキー（削除や更新に使用可能）
+    //表示用テキスト・HTMLを作成
+    let h = '<p>';
+    h += msg.name;
+    h += '<br>';
+    h += msg.text;
+    h += '</p>';
+    $("#output").append(h); //#outputの最後に追加
 });
+
+// $('.inputarea').on('click', '#send', function () {
+//     const iaItem = $(this).closest("div"); // クリックされたボタンに最も近い親 <li> 要素を取得
+//     const name = iaItem.find('input').text();
+//     const text = iaItem.find('textarea').text();
+//     name = $('#name').val();
+//     text = $('#text').val();
