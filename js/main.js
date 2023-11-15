@@ -22,6 +22,8 @@ $(".inputarea1").on('click', '#send1', function () {
     }
     const newPostRef = push(dbRef);//ユニークKEYを生成（これをつけないとデータが上書きされる）
     set(newPostRef, msg);//"chat"にユニークKEYをつけてオブジェクトデータを登録
+
+    $('#text1').val('');
 });
 
 
@@ -35,6 +37,8 @@ $(".inputarea2").on('click', '#send2', function () {
     }
     const newPostRef = push(dbRef);//ユニークKEYを生成（これをつけないとデータが上書きされる）
     set(newPostRef, msg);//"chat"にユニークKEYをつけてオブジェクトデータを登録
+
+    $('#text2').val('');
 });
 
 
@@ -56,11 +60,13 @@ $(".inputarea2").on('click', '#send2', function () {
 onChildAdded(dbRef, function (data) {
     const msg = data.val();//オブジェクトデータを取得し、変数msgに代入
     const key = data.key;//データのユニークキー（削除や更新に必須）
+    let html;
     //表示用テキスト・HTMLを作成
-    let html = `
+    if (data.val().value == 0) {
+        html = `
         <div class="balloon_r ${key}">
             <div class="faceicon">
-                <img src="#.jpg" alt="" >
+                <img src="img/face1.jpg" alt="アイコン1" >
             </div>
             <div class="says">
                 <p>${msg.name}</p><br>
@@ -69,7 +75,23 @@ onChildAdded(dbRef, function (data) {
             </div>
         </div>
     `
+    } else {
+        html = `
+        <div class="balloon_l ${key}">
+            <div class="faceicon">
+                <img src="img/face2.jpg" alt="アイコン2" >
+            </div>
+            <div class="says">
+                <p>${msg.name}</p><br>
+                <p>${msg.text}</p>
+                <span class="remove" data-key="${key}">🗑</span>
+            </div>
+        </div>
+    `
+    }
+    console.log(html);
     $("#output").append(html); //#outputの最後に追加
+    window.scroll(0, document.documentElement.scrollHeight - document.documentElement.clientHeight);
 });
 
 
@@ -94,3 +116,5 @@ $('#deleteAll').on('click', function(){
 onChildRemoved(dbRef, function(data){
     $('.'+data.key).remove();// 対象を削除
 });
+
+// 画面下部へスクロール

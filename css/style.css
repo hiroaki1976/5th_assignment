@@ -55,6 +55,8 @@ h1 {
     width: 400px;
     height: 650px;
     overflow: auto;/* 650pxを超えたらスクロール表示に切り替わる */
+    background-image: url("/img/aozora.jpg");
+    background-size: cover;
     border: 1px solid #222222;
     margin-bottom: 50px;
 }
@@ -91,6 +93,7 @@ h1 {
 .faceicon img{
   width: 80px; /*任意のサイズ*/
   height: auto;
+  border-radius: 50%;
 }
 
 .balloon_r .faceicon{
@@ -125,6 +128,7 @@ h1 {
 
 .says p:first-child{
   margin-top:0 !important;
+  font-weight: bold;
 }
 
 .says:after {
