@@ -12,11 +12,26 @@ const firebaseConfig = {
     const dbRef = ref(db, "chat"); //RealtimeDB内の"chat"を使う
 
 
-//データ登録(Click)
-$("#send").on("click", function () {
+//データ登録send1(Click)
+$(".inputarea1").on('click', '#send1', function () {
+    const value = $(this).attr('value');
     const msg = {
-        name: $("#name").val(),
-        text: $("#text").val()
+        name: $("#name1").val(),
+        text: $("#text1").val(),
+        value: value
+    }
+    const newPostRef = push(dbRef);//ユニークKEYを生成（これをつけないとデータが上書きされる）
+    set(newPostRef, msg);//"chat"にユニークKEYをつけてオブジェクトデータを登録
+});
+
+
+//データ登録send2(Click)
+$(".inputarea2").on('click', '#send2', function () {
+    const value = $(this).attr('value');
+    const msg = {
+        name: $("#name2").val(),
+        text: $("#text2").val(),
+        value: value
     }
     const newPostRef = push(dbRef);//ユニークKEYを生成（これをつけないとデータが上書きされる）
     set(newPostRef, msg);//"chat"にユニークKEYをつけてオブジェクトデータを登録
@@ -24,17 +39,17 @@ $("#send").on("click", function () {
 
 
 //データ登録(Enter)
-$("#text").on("keydown", function (e) {
-    console.log(e);        //e変数の中身を確認！！
-    if (e.keyCode == 13) {   //EnterKey=13
-        const msg = {
-            name: $("#name").val(),
-            text: $("#text").val()
-        }
-        const newPostRef = push(dbRef);
-        set(newPostRef, msg);
-    }
-});
+// $(".text").on("keydown", function (e) {
+//     console.log(e);        //e変数の中身を確認！！
+//     if (e.keyCode == 13) {   //EnterKey=13
+//         const msg = {
+//             name: $(".name").val(),
+//             text: $(".text").val()
+//         }
+//         const newPostRef = push(dbRef);
+//         set(newPostRef, msg);
+//     }
+// });
 
 
 //最初にデータ取得＆onSnapshotでリアルタイムにデータを取得

@@ -16,12 +16,13 @@ h1 {
     flex-wrap: wrap;
 }
 
-.inputarea {
+.inputarea1, .inputarea2 {
     width: 330px;
     height: auto;
 }
 
-.inputarea input {
+.inputarea1 input,
+.inputarea2 input {
     width: 85%;
     height: 50px;
     font-size: 24px;
@@ -29,7 +30,8 @@ h1 {
     border-radius: 5%;
 }
 
-.inputarea textarea {
+.inputarea1 textarea,
+.inputarea2 textarea {
     width: 85%;
     height: 300px;
     font-size: 20px;
@@ -37,7 +39,8 @@ h1 {
     border-radius: 3%;
 }
 
-.inputarea button {
+.inputarea1 button,
+.inputarea2 button {
     display: block;
     margin: 0 auto;
     width: 200px;
