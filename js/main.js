@@ -59,12 +59,23 @@ onChildAdded(dbRef, function (data) {
 
 
 // 個別のチャットの削除
-$('#output').on('click', '.remove', function (){
+$('#output').on('click', '.remove', function(){
     const key = $(this).attr('data-key');
     const removeItem = ref(db, 'chat/'+key);
     remove(removeItem);// Firebaseデータ削除関数
 });
 
 onChildRemoved(dbRef, function(data) {
+    $('.'+data.key).remove();// 対象を削除
+});
+
+
+// 全てのチャットの削除
+$('#deleteAll').on('click', function(){
+    const removeItem = ref(db, 'chat');
+    remove(removeItem);
+});
+
+onChildRemoved(dbRef, function(data){
     $('.'+data.key).remove();// 対象を削除
 });
