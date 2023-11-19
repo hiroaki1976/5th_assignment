@@ -10,6 +10,11 @@
 <body>
     <main>
         <h1>LINE風チャットアプリ</h1>
+        <div>
+            <p id="status">Login</p>
+            <p>名前：</p><span id="uname"></span><br>
+            <img src="" id="prof">
+        </div>
         <div class="wrapper">
             <div class="inputarea1">
                 <input type="text" id="name1" placeholder="名前を入力してください">
@@ -25,6 +30,7 @@
                 <button id="send2" value="1">送信</button>
             </div>
         </div>
+        <button id="logout">ログアウト</button>
         <button id="deleteAll">トーク履歴を全て消去</button>
     </main>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

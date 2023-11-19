@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン</title>
+    <link rel="stylesheet" href="css/reset.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div>
+        <button id="login">Login</button>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="module">
+        // 必要なFirebaseライブラリを読み込み
+        import { initializeApp }
+            from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged }
+            from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
+
+        // FirebaseConfig（これは絶対githubには上げない！！！）
+        const firebaseConfig = {
+            
+        };
+        const app = initializeApp(firebaseConfig);
+
+        // GoogleAuth（認証用）
+        const provider = new GoogleAuthProvider();
+        provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
+        const auth = getAuth();
+
+        // login処理
+        $('#login').on('click',function(){
+            //google認証完了後の処理
+            signInWithPopup(auth, provider).then((result) => {
+                //login後のページ遷移
+                location.href = 'index.html';
+            }).catch((error) => {
+                // Handle Errors here.
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // The email of the user's account used.
+                const email = error.email;
+                // The AuthCredential type that was used.
+                const credential = GoogleAuthProvider.credentialFromError(error);
+            });
+        });
+
+    </script>
+</body>
+</html>

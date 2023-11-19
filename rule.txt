@@ -1,0 +1,21 @@
+// 理想
+{
+  "rules": {
+    "users": {
+        "$uid": {
+            ".read": "$uid === auth.uid",
+            ".write": "$uid === auth.uid",
+        }
+    }
+  }
+}
+
+// 現状動くデータベースルール
+{
+  "rules": {
+        "$uid": {
+            ".read": true,
+            ".write": true,
+        }
+    }
+}
