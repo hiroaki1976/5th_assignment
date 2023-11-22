@@ -7,10 +7,8 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChang
     from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 
 // Your web app's Firebase configuration
-// 以下のfirebaseConfigは絶対githubにはアップロードしない！！
-const firebaseConfig = {
-    
-    };
+// FirebaseConfigをfirebase_api.jsからimport
+import {firebaseConfig} from "../setting/firebase_api.js"
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app); //RealtimeDBに接続
     // const dbRef = ref(db, 'chat/'+uid); //RealtimeDB内の"chat"を使う

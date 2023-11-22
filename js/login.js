@@ -4,10 +4,8 @@ from "https://www.gstatic.com/firebasejs/10.6.0/firebase-app.js";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged }
 from "https://www.gstatic.com/firebasejs/10.6.0/firebase-auth.js";
 
-// FirebaseConfig（これは絶対githubには上げない！！！）
-const firebaseConfig = {
-
-    };
+// FirebaseConfigをfirebase_api.jsからimport
+import {firebaseConfig} from "../setting/firebase_api.js"
 const app = initializeApp(firebaseConfig);
 
 // GoogleAuth（認証用）
